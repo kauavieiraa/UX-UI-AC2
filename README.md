@@ -1,22 +1,54 @@
-# ETAPA 3 
+# README - JAVADOC
 
-Este documento apresenta o grafo de fluxo, o cálculo da complexidade ciclomática e a quantidade de caminhos possíveis traçados.
+Este documento descreve o funcionamento do pacote `login`, responsável pela autenticação de usuários em um banco de dados MySQL.
 
-### Complexidade Ciclomática
-M = E − N + 2P <br>
-M = 18 - 16 + 2(1) <br>
-M = 4 <br>
-Após o cálculo da complexidade ciclomática, podemos concluir que há 4 caminhos possíveis para realizar. <br> <br>
-![Complexidade-Ciclomatica](https://github.com/user-attachments/assets/ccfa39b3-5235-4912-8475-2f3ad4c1537b)
+## Importando as Classes Necessárias
 
+O código importa as seguintes classes Java:
 
-### Quantidade de Caminhos
-<b>Primeiro Caminho:<b> 1-2-3-4-5-7-8-9-10-11-12-14-16 <br>
-<b>Segundo Caminho:<b> 1-2-3-4-6-7-8-9-10-11-12-14-16 <br>
-<b>Terceiro Caminho:<b> 1-2-3-4-6-7-8-9-15-16 <br>
-<b>Quarto Caminho:<b> 1-2-3-4-5-7-8-9-15-16 <br> <br>
-![Caminhos](https://github.com/user-attachments/assets/43ef2c6e-eb62-4ce5-b2f3-76e9c3e02952)
+- `java.sql.Connection`
+- `java.sql.DriverManager`
+- `java.sql.ResultSet`
+- `java.sql.Statement`
 
+## Classe `User`
 
-### Grafo de Fluxo 
-![Grafo-Fluxo](https://github.com/user-attachments/assets/1c7ae65a-4e30-40b6-a2e7-6c3e5304d39e) <br>
+A classe `User` representa um sistema de Login de usuários com autenticação no banco de dados. Ela se conecta a um banco de dados MySQL e verifica se o usuário e senha existem no banco.
+
+### Autor
+
+- Kauã Vieira Mendonça Santos
+
+### Versão
+
+- 1.0
+
+### Atributos
+
+- `nome`: O nome do usuário retornado pela consulta SQL após autenticação bem-sucedida.
+- `result`: O resultado da verificação das credenciais.
+
+### Métodos
+
+#### `conectarBD()`
+
+Este método estabelece uma conexão com o banco de dados MySQL.
+
+- **Descrição**: A conexão é estabelecida com base na URL passada.
+- **Retorno**: Retorna um objeto representando a conexão do banco de dados ou `null` caso a conexão falhe.
+
+#### `verificarUsuario(login, senha)`
+
+Verifica se o login e senha passados estão cadastrados no banco de dados.
+
+- **Parâmetros**:
+  - `login`: O login do usuário a ser autenticado.
+  - `senha`: A senha correspondente ao login.
+- **Retorno**: Define `result = true` caso as credenciais sejam válidas ou `result = false` caso contrário.
+
+### Considerações
+
+- **Tratamento de Exceções**: O código captura exceções sem fornecer mensagens detalhadas, o que dificulta o diagnóstico de falhas. É recomendável adicionar logs ou exibições de mensagens detalhadas nos blocos `catch`.
+- **Fechamento da Conexão**: Após o uso, a conexão com o banco de dados deve ser fechada para evitar vazamento de recursos. Recomenda-se usar `try-with-resources` ou garantir o fechamento da conexão em um bloco `finally`.
+- **Validação de Entradas**: As entradas dos parâmetros `login` e `senha` devem ser validadas para evitar o envio de valores inválidos ou tendenciosos.
+- **Tratamento de Conexão Nula**: É importante tratar adequadamente o caso de a conexão com o banco não ser estabelecida corretamente.
